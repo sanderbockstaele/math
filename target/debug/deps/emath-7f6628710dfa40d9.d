@@ -1,0 +1,11 @@
+C:\Users\sander.bockstaele\IdeaProjects\math\target\debug\deps\emath-7f6628710dfa40d9.rmeta: C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\lib.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\align.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\pos2.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\rect.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\rot2.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\smart_aim.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\vec2.rs
+
+C:\Users\sander.bockstaele\IdeaProjects\math\target\debug\deps\emath-7f6628710dfa40d9.d: C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\lib.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\align.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\pos2.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\rect.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\rot2.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\smart_aim.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\vec2.rs
+
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\lib.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\align.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\pos2.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\rect.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\rot2.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\smart_aim.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\emath-0.9.0\src\vec2.rs:
