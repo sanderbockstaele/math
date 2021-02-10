@@ -1,0 +1,7 @@
+C:\Users\sander.bockstaele\IdeaProjects\math\target\debug\deps\owned_ttf_parser-1d3b6b3559897f18.rmeta: C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\lib.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\convert.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\owned.rs
+
+C:\Users\sander.bockstaele\IdeaProjects\math\target\debug\deps\owned_ttf_parser-1d3b6b3559897f18.d: C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\lib.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\convert.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\owned.rs
+
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\lib.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\convert.rs:
+C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\owned_ttf_parser-0.6.0\src\owned.rs:
