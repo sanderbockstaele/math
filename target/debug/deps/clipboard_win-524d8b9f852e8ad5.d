@@ -1,9 +1,0 @@
-C:\Users\sander.bockstaele\IdeaProjects\math\target\debug\deps\clipboard_win-524d8b9f852e8ad5.rmeta: C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src/lib.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\utils.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\formats.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\raw.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\image.rs
-
-C:\Users\sander.bockstaele\IdeaProjects\math\target\debug\deps\clipboard_win-524d8b9f852e8ad5.d: C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src/lib.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\utils.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\formats.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\raw.rs C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\image.rs
-
-C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src/lib.rs:
-C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\utils.rs:
-C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\formats.rs:
-C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\raw.rs:
-C:\Users\sander.bockstaele\.cargo\registry\src\github.com-1ecc6299db9ec823\clipboard-win-2.2.0\src\image.rs:
