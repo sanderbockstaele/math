@@ -58,7 +58,7 @@ impl AppWindow {
 				}
 			});
 
-			// ui.add(egui::TextBox())
+			ui.add(egui::TextEdit::singleline(&mut self.equation_input).hint_text("write your equation"));
 		});
 	}
 }
