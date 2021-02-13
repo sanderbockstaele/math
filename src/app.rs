@@ -73,13 +73,13 @@ impl AppWindow {
 
 		egui::CentralPanel::default().show(ctx, |ui| {
 			Frame::dark_canvas(ui.style()).show(ui, |ui| {
-				let graphs = vec![];
+				let mut graphs = vec![];
 
 				ui.ctx().request_repaint();
 
-				for equation in self.history {
+				for equation in &self.history {
 					graphs.push(paint::Shape::line(
-						solve_equation(equation),
+						solve_equation(equation.to_string()),
 						Stroke::new(1.0, Color32::from_additive_luminance(196)),
 					));
 				}
