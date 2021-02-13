@@ -58,7 +58,15 @@ impl AppWindow {
 				}
 			});
 
-			ui.add(egui::TextEdit::singleline(&mut self.equation_input).hint_text("write your equation"));
+			ui.horizontal(|ui| {
+				ui.add(egui::TextEdit::singleline(&mut self.equation_input).hint_text("write your equation"));
+
+
+				if ui.button("Add").clicked() {
+					// this is verbose: unborrow equation and cast it to a String
+					self.history.push((*self.equation_input).to_string());
+				}
+			});
 		});
 	}
 }
