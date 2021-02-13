@@ -1,4 +1,6 @@
+use crate::algebra::solve_equation;
 use egui::*;
+use egui::{Frame};
 use epi::*;
 
 // ------------ App ---------------------------------------------
@@ -65,6 +67,21 @@ impl AppWindow {
 				if ui.button("Add").clicked() {
 					// this is verbose: unborrow equation and cast it to a String
 					self.history.push((*self.equation_input).to_string());
+				}
+			 });
+		});
+
+		egui::CentralPanel::default().show(ctx, |ui| {
+			Frame::dark_canvas(ui.style()).show(ui, |ui| {
+				let graphs = vec![];
+
+				ui.ctx().request_repaint();
+
+				for equation in self.history {
+					graphs.push(paint::Shape::line(
+						solve_equation(equation),
+						Stroke::new(1, Color32::from_additive_luminance(196)),
+					));
 				}
 			});
 		});
