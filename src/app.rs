@@ -44,7 +44,7 @@ impl Default for AppWindow {
 
 impl AppWindow {
 	fn ui(&mut self, ctx: &CtxRef) {
-		egui::SidePanel::left("side_panel", 500.0).show(ctx, |ui| {
+		egui::SidePanel::left("side_panel", 200.0).show(ctx, |ui| {
 			ui.heading("Equations");
 
 			ui.separator();
