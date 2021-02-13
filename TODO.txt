@@ -1,7 +1,0 @@
-TODO
-
-* import egui
-* implement input
-* 
-
-DONE
