@@ -79,7 +79,7 @@ impl AppWindow {
 
 				for equation in &self.history {
 					graphs.push(paint::Shape::line(
-						solve_equation(equation.to_string()),
+						solve_equation(&equation),
 						Stroke::new(1.0, Color32::from_additive_luminance(196)),
 					));
 				}
