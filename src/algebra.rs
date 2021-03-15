@@ -58,15 +58,33 @@ fn is_variable(characters: Vec<&str>) -> bool {
     return false;
 }
 
-pub fn solve_equation(equation: &str) -> Vec<Pos2> {
-    // 
-    let characters = UnicodeSegmentation::graphemes(equation, true).collect::<Vec<&str>>();
+fn create_character_vec(equation: &str) -> Vec<&str> {
+    UnicodeSegmentation::graphemes(equation, true).collect::<Vec<&str>>()
+}
 
-    is_function(characters);
+pub fn solve_equation(equation: &str) -> Vec<Pos2> {
+    is_function(create_character_vec(equation));
 
     let graph = vec![
 
     ];
 
     return graph;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_is_function(){
+        let mut characters: Vec<&str> = create_character_vec("test()");
+        assert_eq!(is_function(characters), true);
+
+        characters = create_character_vec("12345");
+        assert_eq!(is_function(characters), false);
+
+        characters = create_character_vec("test");
+        assert_eq!(is_function(characters), false);
+    }
 }
