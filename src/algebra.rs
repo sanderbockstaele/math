@@ -2,7 +2,7 @@ use unicode_segmentation::UnicodeSegmentation;
 use emath::Pos2;
 use array2d::Array2D;
 
-const LETTER: Vec<char> = vec!['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'
+const LETTER: [char; 52] = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'
 ,'q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M',
 'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
@@ -35,9 +35,16 @@ fn is_function(characters: Vec<&str>) -> bool {
 fn is_number(characters: Vec<&str>) -> bool {
     let mut iterator = characters.iter().peekable();
 
-    while iterator.peek() != None { 
-        for character in LETTER {
-            let current_character: &str = &character.to_string();
+    while iterator.peek() != None {
+        // here are 2 problems and workarounds
+        // 1.
+        // iterator.peek().unwrap returns a &&&str
+        // and you can't compare a &&&str to a char
+        // 2.
+        // i made a const vector of all the alphabetic characters
+        // because somehow .is_alphabetic() doesn't work
+        for i in 1..52 {
+            let current_character: &str = &LETTER[i].to_string();
             if iterator.peek().unwrap() == &&current_character{
                        
             }
