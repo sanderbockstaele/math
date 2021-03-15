@@ -6,6 +6,8 @@ const LETTER: [char; 52] = ['a','b','c','d','e','f','g','h','i','j','k','l','m',
 ,'q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M',
 'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
 
+const OPERATION: [char; 4] = ['+','-','*','/'];
+
 struct Token<'a> {
     name: &'a str,
     token: Tokens,
@@ -32,7 +34,9 @@ fn is_function(characters: Vec<&str>) -> bool {
     return false;
 }
 
-fn is_number(characters: Vec<&str>) -> bool {
+
+
+fn is_variable(characters: Vec<&str>) -> bool {
     let mut iterator = characters.iter().peekable();
 
     while iterator.peek() != None {
@@ -46,7 +50,7 @@ fn is_number(characters: Vec<&str>) -> bool {
         for i in 1..52 {
             let current_character: &str = &LETTER[i].to_string();
             if iterator.peek().unwrap() == &&current_character{
-                       
+                           
             }
         }
     }
