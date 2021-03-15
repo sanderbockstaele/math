@@ -11,4 +11,6 @@ egui = { version = "0.9.0" }
 epi = { version = "0.9.0" }
 eframe = "0.9.0"
 emath = "0.9.0"
-pom = "3.2.0"
+prev-iter = "0.1.2"
+unicode-segmentation = "1.7.1"
+array2d = "0.2.1"
