@@ -45,12 +45,19 @@ fn is_variable(characters: Vec<&str>) -> bool {
         // iterator.peek().unwrap returns a &&&str
         // and you can't compare a &&&str to a char
         // 2.
-        // i made a const vector of all the alphabetic characters
+        // i made a const array of all the alphabetic characters
         // because somehow .is_alphabetic() doesn't work
         for i in 1..52 {
             let current_character: &str = &LETTER[i].to_string();
             if iterator.peek().unwrap() == &&current_character{
-                           
+                return true;                      
+            }
+        }
+
+        for i in 4 {
+            let curren_operation: &str = &OPERATION[i].to_string();
+            if iterator.peek().unwrap() == && curren_operation {
+                return false;
             }
         }
     }
@@ -86,5 +93,19 @@ mod tests {
 
         characters = create_character_vec("test");
         assert_eq!(is_function(characters), false);
+    }
+    #[test]
+    fn test_is_variable() {
+        let mut characters: Vec<&str> = create_character_vec("abc");
+        assert_eq!(is_variable(characters), true);
+
+        characters = create_character_vec("3abc");
+        assert_eq!(is_variable(characters), false);
+    
+        characters = create_character_vec("12345");
+        assert_eq!(is_variable(characters), false);
+
+        characters = create_character_vec("test()");
+        assert_eq!(is_variable(characters), false);
     }
 }
