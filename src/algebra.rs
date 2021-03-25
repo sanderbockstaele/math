@@ -2,11 +2,11 @@ use unicode_segmentation::UnicodeSegmentation;
 use emath::Pos2;
 use array2d::Array2D;
 
-const LETTER: [char; 52] = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'
-,'q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M',
-'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+const LETTER: [&str; 52] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"
+,"q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M",
+"N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
 
-const OPERATION: [char; 4] = ['+','-','*','/'];
+const OPERATION: [&str; 4] = ["+","-","*","/"];
 
 struct Token<'a> {
     name: &'a str,
@@ -33,34 +33,28 @@ fn is_function(characters: Vec<&str>) -> bool {
 
     return false;
 }
-
-
-
-fn is_variable(characters: Vec<&str>) -> bool {
-    let mut iterator = characters.iter().peekable();
-
-    while iterator.peek() != None {
-        // here are 2 problems and workarounds
-        // 1.
-        // iterator.peek().unwrap returns a &&&str
-        // and you can't compare a &&&str to a char
-        // 2.
-        // i made a const array of all the alphabetic characters
-        // because somehow .is_alphabetic() doesn't work
-        for i in 1..52 {
-            let current_character: &str = &LETTER[i].to_string();
-            if iterator.peek().unwrap() == &&current_character{
-                return true;                      
-            }
-        }
-
-        for i in 4 {
-            let curren_operation: &str = &OPERATION[i].to_string();
-            if iterator.peek().unwrap() == && curren_operation {
-                return false;
-            }
+²:
+fn is_operation (characters: Vec<&str>) -> bool {
+    let mut result : bool = false;
+    
+    for operation in &OPERATION {
+        for character in characters.iter().take_while(|&c| c == operation ) {
+           result = true;    
         }
     }
+
+    println!("{}", result);
+
+    return result;
+}
+
+fn is_variable(characters: Vec<&str>) -> bool {
+    let mut result: bool = false;
+
+    if is_operation(characters) == true {
+        result = false;
+    }
+
 
     return false;
 }
@@ -94,6 +88,31 @@ mod tests {
         characters = create_character_vec("test");
         assert_eq!(is_function(characters), false);
     }
+
+    #[test]
+    fn test_create_character_vec(){
+        let mut characters: Vec<&str> = create_character_vec("test");
+        assert_eq!(characters.len(), 4);
+
+        let characters_vec: Vec<&str> = ["t","e","s","t"].to_vec();
+        assert_eq!(characters, characters_vec);
+    }
+
+    #[test]
+    fn test_is_operation(){
+        let mut characters: Vec<&str> = create_character_vec("+");
+        assert_eq!(is_operation(characters), true);
+
+        let characters: Vec<&str> = create_character_vec("a");
+        assert_eq!(is_operation(characters), false);
+
+        let characters: Vec<&str> = create_character_vec("A");
+        assert_eq!(is_operation(characters), false);
+
+        let characters: Vec<&str> = create_character_vec("1");
+        assert_eq!(is_operation(characters), false);
+    }
+    
     #[test]
     fn test_is_variable() {
         let mut characters: Vec<&str> = create_character_vec("abc");
