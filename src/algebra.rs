@@ -1,5 +1,6 @@
 use unicode_segmentation::UnicodeSegmentation;
 use emath::Pos2;
+use thiserror::Error;
 
 const LETTER: [&str; 52] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"
 ,"q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M",
@@ -24,6 +25,15 @@ enum Tokens {
     Function,
     Variable,
     Number,
+}
+
+pub enum AlgebraError {
+    #[error("the equation givven is empty")]
+    EmptyEquation,
+    #[error("the equation doesn't have a header")]
+    EmptyEquationHeader,
+    #[error("could not assign a token to this")]
+    UnknownToken,
 }
 
 // used if either it is a function or a variable
