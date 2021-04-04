@@ -1,6 +1,5 @@
 use unicode_segmentation::UnicodeSegmentation;
 use emath::Pos2;
-use array2d::Array2D;
 
 const LETTER: [&str; 52] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"
 ,"q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M",
@@ -14,6 +13,11 @@ struct Token<'a> {
     name: &'a str,
     token: Tokens,
     value: &'a str,
+}
+
+struct Equation<'a> {
+    tokens: Vec<Token<'a>>,
+    name: &'a str,
 }
 
 enum Tokens {
@@ -34,6 +38,18 @@ fn is_function(characters: &Vec<&str>) -> bool {
     }
 
     return false;
+}
+
+fn get_function_name(characters: &Vec<&str>) -> &str {
+    let mut result: &str = &str::new();
+
+    for character in characters {
+        while character != "(" {
+            result.push_str(character);
+        }
+    }
+
+    return result; 
 }
 
 fn is_operation (characters: &Vec<&str>) -> bool {
@@ -63,6 +79,7 @@ fn is_number (characters: &Vec<&str>) -> bool {
 
 fn is_variable(characters: &Vec<&str>) -> bool {
     let mut result: bool = false;
+    
 
     if is_function(&characters) == true {
         result = false;
@@ -81,7 +98,30 @@ fn create_character_vec(equation: &str) -> Vec<&str> {
     UnicodeSegmentation::graphemes(equation, true).collect::<Vec<&str>>()
 }
 
+fn create_token_vec(equation: &str) -> Vec<Token> {
+    let mut token_list: Vec<Vec<&str>> = Vec::new();
+    let mut result: Vec<Token> = Vec::new();
+
+    let equation_parts = equation.split_whitespace();
+    
+    for equation_part in equation_parts {
+        token_list.push(create_character_vec(equation_part);
+    }
+
+    for (token, i) in token_list.iter().enumerate() {
+        if is_function(&token_list[i]) == true {
+            result.push( Token {
+                
+            });
+        }
+    }
+
+
+}
+
 pub fn solve_equation(equation: &str) -> Vec<Pos2> {
+
+
     let graph = vec![
 
     ];
@@ -98,6 +138,7 @@ mod tests {
         let mut characters: Vec<&str> = create_character_vec("test()");
         assert_eq!(is_function(&characters), true);
 
+        
         characters = create_character_vec("12345");
         assert_eq!(is_function(&characters), false);
 
@@ -110,6 +151,7 @@ mod tests {
         let mut characters: Vec<&str> = create_character_vec("123");
         assert_eq!(is_number(&characters), true);
 
+        
         characters = create_character_vec("1");
         assert_eq!(is_number(&characters), true);
 
@@ -122,7 +164,7 @@ mod tests {
         let characters: Vec<&str> = create_character_vec("test");
         assert_eq!(characters.len(), 4);
 
-        let characters_vec: Vec<&str> = ["t","e","s","t"].to_vec();
+        characters_vec: Vec<&str> = ["t","e","s","t"].to_vec();
         assert_eq!(characters, characters_vec);
     }
 
@@ -154,5 +196,13 @@ mod tests {
 
         characters = create_character_vec("test()");
         assert_eq!(is_variable(&characters), false);
+    }
+
+    #[test]
+    fn test_get_function_name() {
+        let mut characters: Vec<&str> = create_character_vec("sin()");
+        assert_eq!(get_function_name(characters), "sin");
+
+
     }
 }
