@@ -1,14 +1,6 @@
 use unicode_segmentation::UnicodeSegmentation;
 use emath::Pos2;
-use thiserror::Error;
-
-const LETTER: [&str; 52] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"
-,"q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M",
-"N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
-
-const OPERATION: [&str; 4] = ["+","-","*","/"];
-
-const NUMBER: [&str; 10] = ["0","1","2","3","4","5","6","7","8","9"];
+use crate::error::AlgebraError;
 
 struct Token<'a> {
     name: &'a str,
@@ -27,15 +19,6 @@ enum Tokens {
     Number,
 }
 
-pub enum AlgebraError {
-    #[error("the equation givven is empty")]
-    EmptyEquation,
-    #[error("the equation doesn't have a header")]
-    EmptyEquationHeader,
-    #[error("could not assign a token to this")]
-    UnknownToken,
-}
-
 // used if either it is a function or a variable
 fn is_function(characters: &Vec<&str>) -> bool {
     let mut iterator = characters.iter().peekable();
@@ -50,8 +33,8 @@ fn is_function(characters: &Vec<&str>) -> bool {
     return false;
 }
 
-fn get_function_name(characters: &Vec<&str>) -> &str {
-    let mut result: &str = &str::new();
+fn get_function_name(characters: String) -> &'static str {
+    let mut result: String = String::new();
 
     for character in characters {
         while character != "(" {
@@ -59,7 +42,7 @@ fn get_function_name(characters: &Vec<&str>) -> &str {
         }
     }
 
-    return result; 
+    return result.as_str(); 
 }
 
 fn is_operation (characters: &Vec<&str>) -> bool {
@@ -108,25 +91,31 @@ fn create_character_vec(equation: &str) -> Vec<&str> {
     UnicodeSegmentation::graphemes(equation, true).collect::<Vec<&str>>()
 }
 
-fn create_token_vec(equation: &str) -> Vec<Token> {
+fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
     let mut token_list: Vec<Vec<&str>> = Vec::new();
     let mut result: Vec<Token> = Vec::new();
 
     let equation_parts = equation.split_whitespace();
     
     for equation_part in equation_parts {
-        token_list.push(create_character_vec(equation_part);
+        token_list.push(create_character_vec(equation_part));
     }
 
-    for (token, i) in token_list.iter().enumerate() {
+    let mut i: usize = 0;
+    for token in token_list {
         if is_function(&token_list[i]) == true {
             result.push( Token {
-                
+                name: "",
+                token: Tokens::Function,
+                value: get_function_name(&token.copy()),
             });
+        } else {
+            return Err(AlgebraError::UnknownToken)
         }
+        let i = i + 1; 
     }
 
-
+    return Ok(result);
 }
 
 pub fn solve_equation(equation: &str) -> Vec<Pos2> {

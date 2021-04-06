@@ -1,0 +1,110 @@
+use algebra::error;
+
+const LETTER: [&str; 52] = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p"
+,"q","r","s","t","u","v","w","x","y","z","A","B","C","D","E","F","G","H","I","J","K","L","M",
+"N","O","P","Q","R","S","T","U","V","W","X","Y","Z"];
+
+const OPERATION: [&str; 4] = ["+","-","*","/"];
+
+const NUMBER: [&str; 10] = ["0","1","2","3","4","5","6","7","8","9"];
+
+// used if either it is a function or a variable
+fn is_function(characters: &Vec<&str>) -> bool {
+    let mut iterator = characters.iter().peekable();
+
+    while iterator.peek() != None {
+        if iterator.peek().unwrap() == &&"(" {
+            return true;
+        }
+        iterator.next();
+    }
+
+    return false;
+}
+
+fn get_function_name(characters: String) -> &'static str {
+    let mut result: String = String::new();
+
+    for character in characters {
+        while character != "(" {
+            result.push_str(character);
+        }
+    }
+
+    return result.as_str(); 
+}
+
+fn is_operation (characters: &Vec<&str>) -> bool {
+    let mut result: bool = false;
+    
+    for operation in &OPERATION {
+        for _character in characters.iter().take_while(|&c| c == operation ) {
+           result = true;    
+        }
+    }
+
+    println!("{}", result);
+
+    return result;
+}
+
+fn is_number (characters: &Vec<&str>) -> bool {
+    let mut result: bool = false;
+
+    for number in &NUMBER {
+        for _character in characters.iter().take_while(|&c| c == number) {
+            result = true;
+        }
+    }
+    return result;
+}
+
+fn is_variable(characters: &Vec<&str>) -> bool {
+    let mut result: bool = false;
+    
+
+    if is_function(&characters) == true {
+        result = false;
+    } else if is_number(&characters) == true {
+        result = false;
+    } else if is_operation(&characters) == true {
+        result = false;
+    } else {
+        result = true;
+    }
+
+    return result;
+}
+
+fn create_character_vec(equation: &str) -> Vec<&str> {
+    UnicodeSegmentation::graphemes(equation, true).collect::<Vec<&str>>()
+}
+
+fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
+    let mut token_list: Vec<Vec<&str>> = Vec::new();
+    let mut result: Vec<Token> = Vec::new();
+
+    let equation_parts = equation.split_whitespace();
+    
+    for equation_part in equation_parts {
+        token_list.push(create_character_vec(equation_part));
+    }
+
+    let mut i: usize = 0;
+    for token in token_list {
+        if is_function(&token_list[i]) == true {
+            result.push( Token {
+                name: "",
+                token: Tokens::Function,
+                value: get_function_name(&token.copy()),
+            });
+        } else {
+            return Err(AlgebraError::UnknownToken)
+        }
+        let i = i + 1; 
+    }
+
+    return Ok(result);
+}
+
+

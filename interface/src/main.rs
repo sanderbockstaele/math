@@ -1,10 +1,8 @@
 mod app;
-mod algebra;
-
-extern crate eframe;
 
 use crate::app::App;
 use std::env;
+use crate::a;
 
 fn main() {
     let args: Vec<String> = env::args().collect();
