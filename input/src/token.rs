@@ -8,6 +8,23 @@ const OPERATION: [&str; 4] = ["+","-","*","/"];
 
 const NUMBER: [&str; 10] = ["0","1","2","3","4","5","6","7","8","9"];
 
+struct Token<'a> {
+    name: &'a str,
+    token: Tokens,
+    value: &'a str,
+}
+
+struct Equation<'a> {
+    tokens: Vec<Token<'a>>,
+    name: &'a str,
+}
+
+enum Tokens {
+    Function,
+    Variable,
+    Number,
+}
+
 // used if either it is a function or a variable
 fn is_function(characters: &Vec<&str>) -> bool {
     let mut iterator = characters.iter().peekable();
@@ -107,4 +124,80 @@ fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
     return Ok(result);
 }
 
+#[cfg(test)]
+mod tests {
+    use super::*;
 
+    #[test]
+    fn test_is_function(){
+        let mut characters: Vec<&str> = create_character_vec("test()");
+        assert_eq!(is_function(&characters), true);
+
+        
+        characters = create_character_vec("12345");
+        assert_eq!(is_function(&characters), false);
+
+        characters = create_character_vec("test");
+        assert_eq!(is_function(&characters), false);
+    }
+
+    #[test]
+    fn test_is_number(){
+        let mut characters: Vec<&str> = create_character_vec("123");
+        assert_eq!(is_number(&characters), true);
+
+        
+        characters = create_character_vec("1");
+        assert_eq!(is_number(&characters), true);
+
+        characters = create_character_vec("test");
+        assert_eq!(is_number(&characters), false);
+    }
+
+    #[test]
+    fn test_create_character_vec(){
+        let characters: Vec<&str> = create_character_vec("test");
+        assert_eq!(characters.len(), 4);
+
+        characters_vec: Vec<&str> = ["t","e","s","t"].to_vec();
+        assert_eq!(characters, characters_vec);
+    }
+
+    #[test]
+    fn test_is_operation(){
+        let mut characters: Vec<&str> = create_character_vec("+");
+        assert_eq!(is_operation(&characters), true);
+
+        characters = create_character_vec("a");
+        assert_eq!(is_operation(&characters), false);
+
+        characters = create_character_vec("A");
+        assert_eq!(is_operation(&characters), false);
+
+        characters = create_character_vec("1");
+        assert_eq!(is_operation(&characters), false);
+    }
+    
+    #[test]
+    fn test_is_variable() {
+        let mut characters: Vec<&str> = create_character_vec("abc");
+        assert_eq!(is_variable(&characters), true);
+
+        characters = create_character_vec("3abc");
+        assert_eq!(is_variable(&characters), false);
+    
+        characters = create_character_vec("12345");
+        assert_eq!(is_variable(&characters), false);
+
+        characters = create_character_vec("test()");
+        assert_eq!(is_variable(&characters), false);
+    }
+
+    #[test]
+    fn test_get_function_name() {
+        let mut characters: Vec<&str> = create_character_vec("sin()");
+        assert_eq!(get_function_name(characters), "sin");
+
+
+    }
+}
