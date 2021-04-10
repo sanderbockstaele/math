@@ -1,5 +1,4 @@
 pub mod algebra;
-pub mod error;
 
 #[cfg(test)]
 mod tests {

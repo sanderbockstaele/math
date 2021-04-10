@@ -1,4 +1,4 @@
-use algebra::error::AlgebraError;
+use crate::error::AlgebraError;
 use unicode_segmentation::UnicodeSegmentation;
 
 const LETTER: [char; 52] = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'
