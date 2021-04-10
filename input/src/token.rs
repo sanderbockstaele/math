@@ -10,19 +10,19 @@ const OPERATION: [char; 4] = ['+','-','*','/'];
 const NUMBER: [char; 10] = ['0','1','2','3','4','5','6','7','8','9'];
 
 #[derive(Clone)]
-struct Token {
+pub struct Token {
     name: String,
     token: Tokens,
     value: String,
 }
 
-struct Equation {
+pub struct Equation {
     tokens: Vec<Token>,
     name: &'static str,
 }
 
 #[derive(Clone)]
-enum Tokens {
+pub enum Tokens {
     Function,
     Variable,
     Number,
@@ -112,7 +112,7 @@ fn create_character_vec(equation: &str) -> String {
     return result;
 }
 
-fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
+pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
     let mut token_list: Vec<String> = Vec::new();
     let mut result: Vec<Token> = Vec::new();
 
