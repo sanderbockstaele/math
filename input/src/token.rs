@@ -26,6 +26,7 @@ enum Tokens {
     Function,
     Variable,
     Number,
+    Operation,
 }
 
 // used if either it is a function or a variable
@@ -130,8 +131,20 @@ fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
             });
         } if is_number(token.clone()) == true {
             result.push( Token {
-                name: String::new(),
+                name: token.to_string(),
                 token: Tokens::Number,
+                value: token.to_string(),
+            });
+        } if is_operation(token.clone()) == true {
+            result.push( Token {
+                name: token.to_string(),
+                token: Tokens::Operation,
+                value: token.to_string(),
+            });
+        } if is_variable(token.clone()) == true {
+            result.push( Token {
+                name: token.to_string(),
+                token: Tokens::Variable,
                 value: token.to_string(),
             });
         } else {
