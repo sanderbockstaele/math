@@ -1,12 +1,6 @@
 use emath::Pos2;
 use input::token::*;
 
-enum Types {
-    Float,
-    Int,
-    Unknown
-}
-
 #[derive(Debug)]
 enum AlgebraError {
     ToManyArguments,
@@ -14,56 +8,81 @@ enum AlgebraError {
     NoArguments,
 }
 
-fn sqrt(input: String) -> f64 {
-    let input_float: f64 = input.parse::<f64>().unwrap();
+fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
+    let result = match input.parse::<u64>() {
+        Ok(input) => input,
+        Err(e) => return Err(e),
+    };
 
-    input_float.sqrt()
+    Ok(result)
 }
 
-fn pow(input: Vec<String>) -> Result<f64, AlgebraError> {
-    let mut input_float: Vec<f64> = Vec::new();
-    
-    for string in input {
-        input_float.push( string.parse::<f64>().unwrap());
-    }
+fn convert_to_f64(input: String) -> Result<f64, std::num::ParseFloatError> {
+    let result = match input.parse::<f64>() {
+        Ok(input) => input,
+        Err(e) => return Err(e),
+    };
 
-    if input_float.len() > 2 {
-        return Err(AlgebraError::ToManyArguments);
-    }
-    if input_float.len() < 2 {
-        return Err(AlgebraError::ToLessArguments);
-    }
-    if input_float.len() == 0 {
-        return Err(AlgebraError::NoArguments);
-    }
+    Ok(result)
+}
+
+fn sqrt(input: f64) -> f64 {
+    input.sqrt()
+}
+
+fn pow(input: f64, power: u64) -> Result<f64, AlgebraError> {
+    let mut input_float: Vec<f64> = Vec::new(); 
     
-    let mut iterator: f64 = 0.0;
-    let mut result: f64 = input_float[0];
+    let mut iterator: u64 = 0;
+    let mut result: f64 = 0.0;
     
-    while iterator < input_float[1] {
-        result = result * input_float[0];
+    while iterator < power {
+        result = result * input;
         
-        iterator = iterator + 1.0;
+        iterator = iterator + 1;
     }
     
     Ok(result)
 }
 
 fn get_function_result(function_name: String, arguments: Vec<String>) -> String {
+    let mut int_arguments: Vec<u64> = Vec::new();
+
+    for string in &arguments {
+        int_arguments.push(convert_to_u64(string.to_string()).unwrap()) 
+    }
+
     match function_name.as_str() {
-        "sqrt" => sqrt(arguments[0].clone()).to_string(),
-        "pow" => { 
-            pow(vec![arguments[0].clone(), arguments[1].clone()]).unwrap().to_string()
-        }, 
+        "sqrt" => sqrt(convert_to_f64(arguments[0].clone()).unwrap()).to_string(),
+        "pow" =>  pow(int_arguments[0] as f64, int_arguments[1]).unwrap().to_string(), 
         &_ => "".to_string(),
     }
 }
 
+fn handle_error(input: AlgebraError) {
+
+}
+
 pub fn solve_equation(equation: &str) -> Vec<Pos2> {
+    let tokens: Vec<input::token::Token> = input::token::create_token_vec(equation).unwrap();
+    
+    println!(tokens);
 
     let mut result :Vec<Pos2> =  vec![
 
     ];
 
     return result;
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_pow() {
+        let result = pow(2.0, 2).unwrap();
+
+        assert_eq!(result, 4.0);
+    }
 }
