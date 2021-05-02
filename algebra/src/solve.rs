@@ -23,7 +23,7 @@ fn sqrt(input: f64) -> f64 {
     input.sqrt()
 }
 
-fn pow(input: f64, power: u64) -> Result<f64, AlgebraError> {
+fn pow(input: f64, power: u64) -> f64{
     let mut input_float: Vec<f64> = Vec::new(); 
     
     let mut iterator: u64 = 0;
@@ -35,7 +35,7 @@ fn pow(input: f64, power: u64) -> Result<f64, AlgebraError> {
         iterator = iterator + 1;
     }
     
-    Ok(result)
+    return result;
 }
 
 fn get_function_result(function_name: String, arguments: Vec<String>) -> String {
@@ -47,7 +47,7 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
 
     match function_name.as_str() {
         "sqrt" => sqrt(convert_to_f64(arguments[0].clone()).unwrap()).to_string(),
-        "pow" =>  pow(int_arguments[0] as f64, int_arguments[1]).unwrap().to_string(), 
+        "pow" =>  pow(convert_to_f64(arguments[0].clone()).unwrap(), int_arguments[1]).to_string(), 
         &_ => "".to_string(),
     }
 }
