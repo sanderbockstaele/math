@@ -1,4 +1,4 @@
-pub mod algebra;
+pub mod solve;
 
 #[cfg(test)]
 mod tests {
