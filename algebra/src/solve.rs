@@ -1,13 +1,6 @@
 use emath::Pos2;
 use input::token::*;
 
-#[derive(Debug)]
-enum AlgebraError {
-    ToManyArguments,
-    ToLessArguments,
-    NoArguments,
-}
-
 fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
     let result = match input.parse::<u64>() {
         Ok(input) => input,
