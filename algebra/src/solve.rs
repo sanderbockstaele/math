@@ -52,13 +52,13 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-fn handle_error(input: AlgebraError) {
-
-}
-
 pub fn solve_equation(equation: &str) -> Vec<Pos2> {
     let tokens: Vec<input::token::Token> = input::token::create_token_vec(equation).unwrap();
-    
+
+    for token in tokens {
+        println!("{}", token);        
+    }
+
     let mut result :Vec<Pos2> =  vec![
 
     ];
