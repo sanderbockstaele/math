@@ -1,5 +1,6 @@
 use crate::error::AlgebraError;
 use unicode_segmentation::UnicodeSegmentation;
+use std::fmt::Display;
 
 const LETTER: [char; 52] = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p'
 ,'q','r','s','t','u','v','w','x','y','z','A','B','C','D','E','F','G','H','I','J','K','L','M',
@@ -16,17 +17,29 @@ pub struct Token {
     value: String,
 }
 
-pub struct Equation {
-    tokens: Vec<Token>,
-    name: &'static str,
+impl Display for Token {
+    fn fmt(&self, fmt: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
+        write!(fmt, "name: {} \ttoken: {} \tvalue: {}", self.name, self.token, self.value)
+    }
 }
 
-#[derive(Clone)]
+#[derive(Clone, Debug)]
 pub enum Tokens {
     Function,
     Variable,
     Number,
     Operation,
+}
+
+impl Display for Tokens {
+    fn fmt(&self, fmt: &mut std::fmt::Formatter) -> Result<(), std::fmt::Error> {
+        match *self {
+            Tokens::Function => write!(fmt, "Function"),
+            Tokens::Variable => write!(fmt, "Variable"),
+            Tokens::Number => write!(fmt, "Number"),
+            Tokens::Operation => write!(fmt, "Operation"),
+        }
+    }
 }
 
 // used if either it is a function or a variable
