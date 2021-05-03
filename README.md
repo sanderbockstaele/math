@@ -13,4 +13,4 @@ For all buildin function see [builtin_functions](doc/builtin_functions.md)
 I wanted to create a "real" program, and i wanted to learn more maths.
 
 # Coding style
-I haven't done it myself but please run clippy.
+I haven't done it myself but please run clippy before you commit.
