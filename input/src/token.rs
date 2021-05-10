@@ -132,12 +132,13 @@ pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
     let mut token_list: Vec<String> = Vec::new();
     let mut result: Vec<Token> = Vec::new();
 
+    // split the input and add each part to a vec
     let equation_parts = equation.split_whitespace();
-    
     for equation_part in equation_parts {
         token_list.push(create_character_vec(equation_part));
     }
-
+    
+    // loop over the vec to find wath type the token is
     for token in &token_list {
         if is_function(token.clone()) == true {
             result.push( Token {
@@ -243,5 +244,10 @@ mod tests {
         let mut characters: String = create_character_vec("sin()");
         
         assert_eq!(get_function_name(characters), "sin");
+    }
+
+    #[test]
+    fn test_create_token_vec() {
+        
     }
 }
