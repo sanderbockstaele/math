@@ -57,11 +57,14 @@ fn is_function(string: String) -> bool {
 
 fn get_function_name(characters: String) -> String {
     let mut result: String = String::new();
+    println!("entered get_function_name");
 
     for character in characters.chars() {
-        while character != '(' {
-            result.push(character);
+        if character == '(' {
+            break;
         }
+        result.push(character);
+
     }
 
 
@@ -238,9 +241,7 @@ mod tests {
     #[test]
     fn test_get_function_name() {
         let mut characters: String = create_character_vec("sin()");
+        
         assert_eq!(get_function_name(characters), "sin");
-
-
     }
-    
 }
