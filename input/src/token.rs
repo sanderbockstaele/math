@@ -134,6 +134,7 @@ pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
 
     // split the input and add each part to a vec
     let equation_parts = equation.split_whitespace();
+    
     for equation_part in equation_parts {
         token_list.push(create_character_vec(equation_part));
     }
@@ -146,19 +147,19 @@ pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
                 token: Tokens::Function,
                 value: get_function_name(token.clone()),
             });
-        } if is_number(token.clone()) == true {
+        } else if is_number(token.clone()) == true {
             result.push( Token {
                 name: token.to_string(),
                 token: Tokens::Number,
                 value: token.to_string(),
             });
-        } if is_operation(token.clone()) == true {
+        } else if is_operation(token.clone()) == true {
             result.push( Token {
                 name: token.to_string(),
                 token: Tokens::Operation,
                 value: token.to_string(),
             });
-        } if is_variable(token.clone()) == true {
+        } else if is_variable(token.clone()) == true {
             result.push( Token {
                 name: token.to_string(),
                 token: Tokens::Variable,
@@ -168,7 +169,6 @@ pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
             return Err(AlgebraError::UnknownToken)
         }
     }
-
     return Ok(result);
 }
 
