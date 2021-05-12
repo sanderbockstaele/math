@@ -10,6 +10,27 @@ const OPERATION: [char; 4] = ['+','-','*','/'];
 
 const NUMBER: [char; 10] = ['0','1','2','3','4','5','6','7','8','9'];
 
+#[derive(Debug)]
+pub enum TokenError {
+    EmptyEquation,
+    EmptyequationHeader,
+    UnknownToken,
+
+    #[doc(hidden)]
+    __NoneExhausive,
+}
+
+impl std::fmt::Display for AlgebraError {
+    fn fmt(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+        match self {
+            AlgebraError::EmptyEquation => write!(formatter, "the given equation is empty"),
+            AlgebraError::EmptyequationHeader => write!(formatter, "the given equation has no header"),
+            AlgebraError::UnknownToken => write!(formatter, "could not find the correlating token"),
+            AlgebraError::__NoneExhausive => write!(formatter, "an unknown error occured"),
+        }
+    }
+}
+
 #[derive(Clone)]
 pub struct Token {
     name: String,
