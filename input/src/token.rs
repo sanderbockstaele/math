@@ -1,4 +1,3 @@
-use crate::error::AlgebraError;
 use unicode_segmentation::UnicodeSegmentation;
 use std::fmt::Display;
 
@@ -20,13 +19,13 @@ pub enum TokenError {
     __NoneExhausive,
 }
 
-impl std::fmt::Display for AlgebraError {
+impl std::fmt::Display for TokenError {
     fn fmt(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
         match self {
-            AlgebraError::EmptyEquation => write!(formatter, "the given equation is empty"),
-            AlgebraError::EmptyequationHeader => write!(formatter, "the given equation has no header"),
-            AlgebraError::UnknownToken => write!(formatter, "could not find the correlating token"),
-            AlgebraError::__NoneExhausive => write!(formatter, "an unknown error occured"),
+            TokenError::EmptyEquation => write!(formatter, "the given equation is empty"),
+            TokenError::EmptyequationHeader => write!(formatter, "the given equation has no header"),
+            TokenError::UnknownToken => write!(formatter, "could not find the correlating token"),
+            TokenError::__NoneExhausive => write!(formatter, "an unknown error occured"),
         }
     }
 }
@@ -149,7 +148,7 @@ fn create_character_vec(equation: &str) -> String {
     return result;
 }
 
-pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
+pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, TokenError> {
     let mut token_list: Vec<String> = Vec::new();
     let mut result: Vec<Token> = Vec::new();
 
@@ -187,7 +186,7 @@ pub fn create_token_vec(equation: &str) -> Result<Vec<Token>, AlgebraError> {
                 value: token.to_string(),
             });
         } else {
-            return Err(AlgebraError::UnknownToken)
+            return Err(TokenError::UnknownToken)
         }
     }
     return Ok(result);
