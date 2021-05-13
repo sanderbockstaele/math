@@ -37,9 +37,16 @@ fn pow(input: f64, power: u64) -> f64{
 
 fn get_function_result(function_name: String, arguments: Vec<String>) -> String {
     let mut int_arguments: Vec<u64> = Vec::new();
+    let mut float_arguments: Vec<f64> = Vec::new();
 
+    // create i64 forms of all the arguments
     for string in &arguments {
         int_arguments.push(convert_to_u64(string.to_string()).unwrap()) 
+    }
+
+    // create f64 forms of all the arguments
+    for string in &arguments {
+        float_arguments.push(convert_to_f64(string.to_string()).unwrap())
     }
 
     match function_name.as_str() {
