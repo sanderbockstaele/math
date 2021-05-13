@@ -51,10 +51,13 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
 
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let tokens: Vec<Token> = create_token_vec(equation).unwrap();
-    let result: Vec<f64> = vec![];
+    let mut stack: Vec<String> = vec![];
+    let mut result: Vec<f64> = vec![];
 
     for token in tokens {
-        match token {
+        let token_type: Tokens = token.clone().token;
+        match token_type {
+            Tokens::Number => stack.push(token.clone().value),
             _=> return Err(input::token::TokenError::UnknownToken),
 
         }
