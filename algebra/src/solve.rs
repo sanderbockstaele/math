@@ -1,4 +1,3 @@
-use emath::Pos2;
 use input::token::*;
 
 fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
@@ -52,18 +51,18 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-pub fn solve_equation(equation: &str) -> Vec<Pos2> {
+pub fn solve_equation(equation: &str) -> Result<Vec<f64>, input::token::TokenError> {
     let tokens: Vec<input::token::Token> = input::token::create_token_vec(equation).unwrap();
+    let result: Vec<f64> = vec![];
 
     for token in tokens {
-        println!("{}", token);        
+        match token {
+            _=> return Err(input::token::TokenError::UnknownToken),
+
+        }
     }
-
-    let mut result :Vec<Pos2> =  vec![
-
-    ];
-
-    return result;
+    
+    return Ok(result);
 }
 
 #[cfg(test)]
