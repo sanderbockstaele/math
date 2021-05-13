@@ -1,6 +1,4 @@
 pub mod token;
-pub mod unicode;
-pub mod error;
 
 #[cfg(test)]
 mod tests {
