@@ -32,9 +32,9 @@ impl std::fmt::Display for TokenError {
 
 #[derive(Clone)]
 pub struct Token {
-    name: String,
-    token: Tokens,
-    value: String,
+    pub name: String,
+    pub token: Tokens,
+    pub value: String,
 }
 
 impl Display for Token {
