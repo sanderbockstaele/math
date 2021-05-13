@@ -23,8 +23,6 @@ fn sqrt(input: f64) -> f64 {
 }
 
 fn pow(input: f64, power: u64) -> f64{
-    let mut input_float: Vec<f64> = Vec::new(); 
-    
     let mut iterator: u64 = 0;
     let mut result: f64 = 0.0;
     
