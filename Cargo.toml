@@ -11,6 +11,10 @@ bench = false
 path = "main.rs"
 name = "math"
 
+[profile.dev]
+opt-level = 0
+debug = true
+
 [[test]]
 name = "integration"
 path = "tests/tests.rs"
