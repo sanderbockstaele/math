@@ -49,8 +49,8 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-pub fn solve_equation(equation: &str) -> Result<Vec<f64>, input::token::TokenError> {
-    let tokens: Vec<input::token::Token> = input::token::create_token_vec(equation).unwrap();
+pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
+    let tokens: Vec<Token> = create_token_vec(equation).unwrap();
     let result: Vec<f64> = vec![];
 
     for token in tokens {
