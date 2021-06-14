@@ -58,15 +58,18 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
 
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let tokens: Vec<Token> = create_token_vec(equation).unwrap();
-    let mut stack: Vec<String> = vec![];
     let mut result: Vec<f64> = vec![];
 
+    let mut result_stack: Vec<f64> = vec![];
+    let mut argument_stack: Vec<f64> = vec![];
+    let mut operation_stack: Vec<String> = vec![];
+    
     for token in tokens {
         let token_type: Tokens = token.clone().token;
         match token_type {
-            Tokens::Number => stack.push(token.clone().value),
-            _=> return Err(input::token::TokenError::UnknownToken),
-
+            Tokens::Number => argument_stack.push(convert_to_f64(token.clone().value).unwrap()),
+            Tokens::Operation => operation_stack.push(token.clone().value),
+            _ => return Err(TokenError::UnknownToken),
         }
     }
     
