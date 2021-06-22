@@ -61,14 +61,15 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let mut result: Vec<f64> = vec![];
 
     let mut result_stack: Vec<f64> = vec![];
-    let mut argument_stack: Vec<f64> = vec![];
-    let mut operation_stack: Vec<String> = vec![];
+    let mut argument_stack: Vec<Token> = vec![];
+    let mut operation_stack: Vec<Token> = vec![];
     
+    // sort the tokens in either the argument or operation stack
     for token in tokens {
         let token_type: Tokens = token.clone().token;
         match token_type {
-            Tokens::Number => argument_stack.push(convert_to_f64(token.clone().value).unwrap()),
-            Tokens::Operation => operation_stack.push(token.clone().value),
+            Tokens::Number => argument_stack.push(token.clone()),
+            Tokens::Operation => operation_stack.push(token.clone()),
             _ => return Err(TokenError::UnknownToken),
         }
     }
