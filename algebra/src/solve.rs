@@ -85,7 +85,7 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
             argument_stack[argument_stack.len() - 2],
         ];
 
-        get_operation(operation_stack[operation_stack.len - 1], operations);       
+        get_operation(operation_stack[operation_stack.len() - 1], operations);       
 
     }
 
