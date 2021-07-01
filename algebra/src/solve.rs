@@ -60,6 +60,16 @@ fn get_operation(operation :Token, arguments: Vec<Token>) {
 
 }
 
+fn dispatch_operations(argument_stack: &mut Vec<Token>, operation_stack: &[Token]) {
+    for operation in operation_stack.iter() {
+        let arguments: Vec<Token> = vec![
+            argument_stack.remove(argument_stack.len() - 1),
+            argument_stack.remove(argument_stack.len() - 1),
+        ];
+        get_operation(operation.clone(), arguments);
+    }
+}
+
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let tokens: Vec<Token> = create_token_vec(equation).unwrap();
     let mut result: Vec<f64> = vec![];
@@ -78,17 +88,8 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
         }
     }
     
+    dispatch_operations(&mut argument_stack, &operation_stack);
     // dispatch every operation with their arguments
-    for operation in operation_stack {
-        let operations: Vec<Token> = vec![
-            argument_stack[argument_stack.len() - 1],
-            argument_stack[argument_stack.len() - 2],
-        ];
-
-        get_operation(operation_stack[operation_stack.len() - 1], operations);       
-
-    }
-
     return Ok(result);
 }
 
