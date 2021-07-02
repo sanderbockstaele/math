@@ -1,5 +1,12 @@
 use input::token::*;
 
+#[derive(Debug)]
+enum ResultError {
+    OperationNotFound,
+    ToMuchArguments,
+    ToLessArguments,
+}
+
 fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
     let result = match input.parse::<u64>() {
         Ok(input) => input,
@@ -56,7 +63,7 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-fn get_operation(operation: Token, arguments: Vec<Token>) -> i64 {
+fn get_operation(operation: Token, arguments: Vec<Token>) -> Result<i64, ResultError> {
 }
 
 fn dispatch_operations(argument_stack: &mut Vec<Token>, operation_stack: &[Token]) -> i64 {
@@ -67,7 +74,7 @@ fn dispatch_operations(argument_stack: &mut Vec<Token>, operation_stack: &[Token
             argument_stack.remove(argument_stack.len() - 1),
             argument_stack.remove(argument_stack.len() - 1),
         ];
-        operation_result = get_operation(operation.clone(), arguments);
+        operation_result = get_operation(operation.clone(), arguments).unwrap();
     }
 
     return operation_result;
