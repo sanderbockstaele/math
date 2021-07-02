@@ -56,18 +56,21 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-fn get_operation(operation :Token, arguments: Vec<Token>) {
-
+fn get_operation(operation: Token, arguments: Vec<Token>) -> i64 {
 }
 
-fn dispatch_operations(argument_stack: &mut Vec<Token>, operation_stack: &[Token]) {
+fn dispatch_operations(argument_stack: &mut Vec<Token>, operation_stack: &[Token]) -> i64 {
+    let mut operation_result: i64 = 0;
+    
     for operation in operation_stack.iter() {
         let arguments: Vec<Token> = vec![
             argument_stack.remove(argument_stack.len() - 1),
             argument_stack.remove(argument_stack.len() - 1),
         ];
-        get_operation(operation.clone(), arguments);
+        operation_result = get_operation(operation.clone(), arguments);
     }
+
+    return operation_result;
 }
 
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
