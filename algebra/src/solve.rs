@@ -1,4 +1,5 @@
 use input::token::*;
+use std::cmp::Ordering;
 
 #[derive(Debug)]
 enum ResultError {
@@ -63,14 +64,26 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-fn get_operation(operation: Token, arguments: Vec<Token>) -> Result<i64, ResultError> {
+fn get_operation(operation: String, arguments: Vec<f64>) -> Result<f64, ResultError> {
+    match arguments.len().cmp(&2) {
+        Ordering::Less => return Err(ResultError::ToLessArguments),
+        Ordering::Greater => return Err(ResultError::ToMuchArguments),
+        Ordering::Equal => {},
+    }
+    match operation.as_str() {
+        "+" => { Ok(arguments[1] + arguments[0]) },
+        "-" => { Ok(arguments[1] - arguments[0]) },
+        "*" => { Ok(arguments[1] * arguments[0]) },
+        "/" => { Ok(arguments[1] / arguments[0]) },
+        _=> { return Err(ResultError::OperationNotFound) }
+    }
 }
 
-fn dispatch_operations(argument_stack: &mut Vec<Token>, operation_stack: &[Token]) -> i64 {
-    let mut operation_result: i64 = 0;
+fn dispatch_operations(argument_stack: &mut Vec<f64>, operation_stack: &mut Vec<String>) -> f64 {
+    let mut operation_result: f64 = 0.0;
     
     for operation in operation_stack.iter() {
-        let arguments: Vec<Token> = vec![
+        let arguments: Vec<f64> = vec![
             argument_stack.remove(argument_stack.len() - 1),
             argument_stack.remove(argument_stack.len() - 1),
         ];
@@ -85,20 +98,20 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let mut result: Vec<f64> = vec![];
 
     let mut result_stack: Vec<f64> = vec![];
-    let mut argument_stack: Vec<Token> = vec![];
-    let mut operation_stack: Vec<Token> = vec![];
+    let mut argument_stack: Vec<f64> = vec![];
+    let mut operation_stack: Vec<String> = vec![];
     
     // sort the tokens in either the argument or operation stack
     for token in tokens {
         let token_type: Tokens = token.clone().token;
         match token_type {
-            Tokens::Number => argument_stack.push(token.clone()),
-            Tokens::Operation => operation_stack.push(token.clone()),
+        Tokens::Number => argument_stack.push(convert_to_f64(token.clone().value).unwrap()),
+            Tokens::Operation => operation_stack.push(token.clone().name),
             _ => return Err(TokenError::UnknownToken),
         }
     }
     
-    dispatch_operations(&mut argument_stack, &operation_stack);
+    result.push(dispatch_operations(&mut argument_stack, &mut operation_stack));
     // dispatch every operation with their arguments
     return Ok(result);
 }
@@ -107,10 +120,14 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
 mod tests {
     use super::*;
 
-    #[test]
+    #[teist]
     fn test_pow() {
         let result = pow(2.0, 2).unwrap();
 
         assert_eq!(result, 4.0);
+    }
+    #[test]
+    fn test_get_operation() {
+        
     }
 }
