@@ -8,6 +8,16 @@ enum ResultError {
     ToLessArguments,
 }
 
+struct Expression{
+    tokens: Vec<Token>,
+    arguments: Vec<f64>,
+    operations: Vec<String>,
+    results: Vec<f64>,
+}
+
+trait Solve {
+}
+
 fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
     let result = match input.parse::<u64>() {
         Ok(input) => input,
