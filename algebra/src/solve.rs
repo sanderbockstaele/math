@@ -16,7 +16,26 @@ struct Expression{
 }
 
 trait Solve {
+    fn get_operation_result(&self) -> Result<f64, ResultError>;
 }
+
+impl Solve for Expression {
+    fn get_operation_result(&self) -> Result<f64, ResultError> {
+        match self.arguments.len().cmp(&2) {
+            Ordering::Less => return Err(ResultError::ToLessArguments),
+            Ordering::Greater => return Err(ResultError::ToMuchArguments),
+            Ordering::Equal => {},
+        }
+        match self.operations[0].as_str() {
+            "+" => { Ok(self.arguments[1] + self.arguments[0]) },
+            "-" => { Ok(self.arguments[1] - self.arguments[0]) },
+            "*" => { Ok(self.arguments[1] * self.arguments[0]) },
+            "/" => { Ok(self.arguments[1] / self.arguments[0]) },
+            _=> { return Err(ResultError::OperationNotFound) }
+        }
+    }
+}
+
 
 fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
     let result = match input.parse::<u64>() {
@@ -74,21 +93,6 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-fn get_operation_result(operation: String, arguments: Vec<f64>) -> Result<f64, ResultError> {
-    match arguments.len().cmp(&2) {
-        Ordering::Less => return Err(ResultError::ToLessArguments),
-        Ordering::Greater => return Err(ResultError::ToMuchArguments),
-        Ordering::Equal => {},
-    }
-    match operation.as_str() {
-        "+" => { Ok(arguments[1] + arguments[0]) },
-        "-" => { Ok(arguments[1] - arguments[0]) },
-        "*" => { Ok(arguments[1] * arguments[0]) },
-        "/" => { Ok(arguments[1] / arguments[0]) },
-        _=> { return Err(ResultError::OperationNotFound) }
-    }
-}
-
 fn dispatch_operations(argument_stack: &mut Vec<f64>, operation_stack: &mut Vec<String>) -> f64 {
     let mut operation_result: f64 = 0.0;
     
@@ -97,7 +101,7 @@ fn dispatch_operations(argument_stack: &mut Vec<f64>, operation_stack: &mut Vec<
             argument_stack.remove(argument_stack.len() - 1),
             argument_stack.remove(argument_stack.len() - 1),
         ];
-        operation_result = get_operation_result(operation.clone(), arguments).unwrap();
+        operation_result = Expression::get_operation_result(operation.clone(), arguments).unwrap();
     }
 
     return operation_result;
@@ -115,7 +119,7 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     for token in tokens {
         let token_type: Tokens = token.clone().token;
         match token_type {
-        Tokens::Number => argument_stack.push(convert_to_f64(token.clone().value).unwrap()),
+            Tokens::Number => argument_stack.push(convert_to_f64(token.clone().value).unwrap()),
             Tokens::Operation => operation_stack.push(token.clone().name),
             _ => return Err(TokenError::UnknownToken),
         }
