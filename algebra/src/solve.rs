@@ -113,7 +113,7 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
         }
     }
     
-    result.push(Expression::get_operation_result(&expression).unwrap());
+    expression.results.push(Expression::get_operation_result(&expression).unwrap());
     // dispatch every operation with their arguments
     return Ok(result);
 }
