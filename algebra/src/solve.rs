@@ -17,15 +17,21 @@ struct Expression{
 
 trait Solve {
     fn get_operation_result(&self) -> Result<f64, ResultError>;
+
+    fn new() -> Self;
 }
 
 impl Solve for Expression {
-    fn get_operation_result(&self) -> Result<f64, ResultError> {
-        match self.arguments.len().cmp(&2) {
-            Ordering::Less => return Err(ResultError::ToLessArguments),
-            Ordering::Greater => return Err(ResultError::ToMuchArguments),
-            Ordering::Equal => {},
+    fn new() -> Self {
+        Expression {
+            tokens: Vec::new(),
+            arguments: Vec::new(),
+            operations: Vec::new(),
+            results: Vec::new(),
         }
+    }
+
+    fn get_operation_result(&self) -> Result<f64, ResultError> {
         match self.operations[0].as_str() {
             "+" => { Ok(self.arguments[1] + self.arguments[0]) },
             "-" => { Ok(self.arguments[1] - self.arguments[0]) },
@@ -35,7 +41,6 @@ impl Solve for Expression {
         }
     }
 }
-
 
 fn convert_to_u64(input: String) -> Result<u64, std::num::ParseIntError> {
     let result = match input.parse::<u64>() {
@@ -93,39 +98,25 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
     }
 }
 
-fn dispatch_operations(argument_stack: &mut Vec<f64>, operation_stack: &mut Vec<String>) -> f64 {
-    let mut operation_result: f64 = 0.0;
-    
-    for operation in operation_stack.iter() {
-        let arguments: Vec<f64> = vec![
-            argument_stack.remove(argument_stack.len() - 1),
-            argument_stack.remove(argument_stack.len() - 1),
-        ];
-        operation_result = Expression::get_operation_result(operation.clone(), arguments).unwrap();
-    }
-
-    return operation_result;
-}
-
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let tokens: Vec<Token> = create_token_vec(equation).unwrap();
     let mut result: Vec<f64> = vec![];
 
-    let mut result_stack: Vec<f64> = vec![];
-    let mut argument_stack: Vec<f64> = vec![];
-    let mut operation_stack: Vec<String> = vec![];
+    let mut expression: Expression = Expression::new();
     
+    expression.tokens = create_token_vec(equation).unwrap();
+
     // sort the tokens in either the argument or operation stack
     for token in tokens {
         let token_type: Tokens = token.clone().token;
         match token_type {
-            Tokens::Number => argument_stack.push(convert_to_f64(token.clone().value).unwrap()),
-            Tokens::Operation => operation_stack.push(token.clone().name),
+            Tokens::Number => expression.arguments.push(convert_to_f64(token.clone().value).unwrap()),
+            Tokens::Operation => expression.operations.push(token.clone().name),
             _ => return Err(TokenError::UnknownToken),
         }
     }
     
-    result.push(dispatch_operations(&mut argument_stack, &mut operation_stack));
+    result.push(Expression::get_operation_result(&expression).unwrap());
     // dispatch every operation with their arguments
     return Ok(result);
 }
