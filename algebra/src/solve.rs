@@ -4,8 +4,6 @@ use std::cmp::Ordering;
 #[derive(Debug)]
 enum ResultError {
     OperationNotFound,
-    ToMuchArguments,
-    ToLessArguments,
 }
 
 struct Expression{
