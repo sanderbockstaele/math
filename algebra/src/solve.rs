@@ -97,7 +97,6 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
 
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     let tokens: Vec<Token> = create_token_vec(equation).unwrap();
-    let mut result: Vec<f64> = vec![];
 
     let mut expression: Expression = Expression::new();
     
@@ -115,7 +114,7 @@ pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
     
     expression.results.push(Expression::get_operation_result(&expression).unwrap());
     // dispatch every operation with their arguments
-    return Ok(result);
+    return Ok(expression.results);
 }
 
 #[cfg(test)]
