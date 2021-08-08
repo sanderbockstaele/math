@@ -96,14 +96,12 @@ fn get_function_result(function_name: String, arguments: Vec<String>) -> String 
 }
 
 pub fn solve_equation(equation: &str) -> Result<Vec<f64>, TokenError> {
-    let tokens: Vec<Token> = create_token_vec(equation).unwrap();
-
     let mut expression: Expression = Expression::new();
     
     expression.tokens = create_token_vec(equation).unwrap();
 
     // sort the tokens in either the argument or operation stack
-    for token in tokens {
+    for token in &expression.tokens {
         let token_type: Tokens = token.clone().token;
         match token_type {
             Tokens::Number => expression.arguments.push(convert_to_f64(token.clone().value).unwrap()),
