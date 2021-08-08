@@ -1,5 +1,4 @@
 use input::token::*;
-use std::cmp::Ordering;
 
 #[derive(Debug)]
 enum ResultError {
