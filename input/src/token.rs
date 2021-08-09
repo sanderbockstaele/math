@@ -9,6 +9,8 @@ const OPERATION: [char; 4] = ['+','-','*','/'];
 
 const NUMBER: [char; 10] = ['0','1','2','3','4','5','6','7','8','9'];
 
+const DELIMITERS: [char; 2] = ['(',')'];
+
 #[derive(Debug)]
 pub enum TokenError {
     EmptyEquation,
