@@ -47,6 +47,7 @@ pub enum Tokens {
     Variable,
     Number,
     Operation,
+    Brace,
 }
 
 impl Display for Tokens {
@@ -56,6 +57,7 @@ impl Display for Tokens {
             Tokens::Variable => write!(fmt, "Variable"),
             Tokens::Number => write!(fmt, "Number"),
             Tokens::Operation => write!(fmt, "Operation"),
+            Tokens::Brace => write!(fmt, "Brace"),
         }
     }
 }
